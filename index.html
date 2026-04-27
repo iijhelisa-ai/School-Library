@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>즐거운 우리 학교 도서관</title>
+    <meta name="description" content="초등학생을 위한 신나는 학교 도서관! 동화도 읽고 친구들과 대화도 나누고 게임도 즐겨보세요.">
+    <!-- 구글 폰트: 귀엽고 둥근 Jua -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">
+            <i class="fa-solid fa-book-open-reader"></i> 우리 학교 도서관
+        </div>
+        <nav class="main-nav">
+            <button class="nav-btn active" data-target="home-view"><i class="fa-solid fa-house"></i> 홈</button>
+            <button class="nav-btn" data-target="story-view"><i class="fa-solid fa-book"></i> 동화마을</button>
+            <button class="nav-btn" data-target="chat-view"><i class="fa-solid fa-comments"></i> 친구랑 톡톡</button>
+            <button class="nav-btn" data-target="game-view"><i class="fa-solid fa-gamepad"></i> 분류 게임</button>
+        </nav>
+    </header>
+
+    <main class="app-main">
+        <!-- 홈 뷰 -->
+        <section id="home-view" class="view-section active">
+            <div class="hero">
+                <h1>환영합니다! 꿈과 환상의 도서관입니다 ✨</h1>
+                <p>책 속에는 어떤 재미있는 이야기가 숨어있을까요?</p>
+                <div class="mascot-container">
+                    <div class="mascot">🦉</div>
+                    <div class="speech-bubble">안녕! 위 메뉴를 눌러서 놀러 가볼까?</div>
+                </div>
+            </div>
+            <div class="home-cards">
+                <div class="card" data-target="story-view">
+                    <div class="card-icon" style="background-color: #ffeaa7;">📖</div>
+                    <h3>재미있는 동화</h3>
+                    <p>콩쥐팥쥐와 어린왕자 이야기를 읽어보아요!</p>
+                </div>
+                <div class="card" data-target="chat-view">
+                    <div class="card-icon" style="background-color: #81ecec;">💬</div>
+                    <h3>주인공과 대화하기</h3>
+                    <p>동화 속 주인공들과 직접 이야기해 보세요.</p>
+                </div>
+                <div class="card" data-target="game-view">
+                    <div class="card-icon" style="background-color: #ff7675;">🎯</div>
+                    <h3>도서관 분류 게임</h3>
+                    <p>책 번호 맞추기 게임을 통해 도서관을 배워요.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 동화마을 뷰 -->
+        <section id="story-view" class="view-section hidden">
+            <h2 class="section-title">📚 동화마을에 오신 것을 환영해요!</h2>
+            <div class="story-selection" id="story-selection">
+                <div class="story-card" onclick="showStory('kongjwi')">
+                    <div class="story-cover kongjwi-bg">🎎</div>
+                    <h3>콩쥐팥쥐</h3>
+                </div>
+                <div class="story-card" onclick="showStory('prince')">
+                    <div class="story-cover prince-bg">👑</div>
+                    <h3>어린왕자</h3>
+                </div>
+            </div>
+            
+            <div id="story-content" class="story-content hidden">
+                <button class="back-btn" onclick="hideStory()"><i class="fa-solid fa-arrow-left"></i> 뒤로가기</button>
+                <h3 id="story-title" class="story-title"></h3>
+                <div id="story-text" class="story-text"></div>
+            </div>
+        </section>
+
+        <!-- 챗봇 뷰 -->
+        <section id="chat-view" class="view-section hidden">
+            <h2 class="section-title">💬 동화 친구들과 이야기해요!</h2>
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <h3>누구와 대화할까요?</h3>
+                    <button class="char-select-btn active" data-char="kongjwi">🎎 콩쥐</button>
+                    <button class="char-select-btn" data-char="patjwi">👿 팥쥐</button>
+                    <button class="char-select-btn" data-char="prince">👑 어린왕자</button>
+                </div>
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <span id="current-chat-char">콩쥐</span>와(과) 대화중입니다.
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Messages go here -->
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="여기에 말을 걸어보세요! (예: 안녕, 넌 누구니?)" autocomplete="off">
+                        <button id="chat-send-btn"><i class="fa-solid fa-paper-plane"></i> 보내기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 게임 뷰 -->
+        <section id="game-view" class="view-section hidden">
+            <h2 class="section-title">🎯 책을 알맞은 곳에 꽂아볼까요?</h2>
+            <p class="game-instruction">아래에 있는 책을 알맞은 주제의 바구니로 드래그 앤 드롭 해보세요!</p>
+            <div class="game-status">
+                <div class="game-score">점수: <span id="score">0</span> / 50 점</div>
+                <div class="game-feedback" id="game-feedback">도전 시작!</div>
+            </div>
+            
+            <div class="game-container">
+                <div class="baskets-container" id="baskets-container">
+                    <!-- Baskets go here -->
+                </div>
+                <div class="books-container" id="books-container">
+                    <!-- Books to drag go here -->
+                </div>
+            </div>
+            <button id="game-reset-btn" class="action-btn hidden" onclick="initGame()"><i class="fa-solid fa-rotate-right"></i> 다시 하기</button>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/stories.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
